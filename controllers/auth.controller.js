@@ -22,6 +22,7 @@ const insert = (req, res, next) => {
         age: req.body.age,
         phonenumber: req.body.phonenumber,
         address: req.body.address,
+        pincode: req.body.pincode,
         bloodgroup: req.body.blood_group
     })
         .then(user => {
@@ -55,6 +56,7 @@ const insert = (req, res, next) => {
 }
 ;
 const signin = (req, res) => {
+    console.log("worrrking>>>>>>>>>>>>")
     User.findOne({
         where: {
             name: req.body.username
@@ -69,6 +71,7 @@ const signin = (req, res) => {
                 user.password
             );
             if (!passwordIsValid) {
+
                 return res.status(401).send({
                     accessToken: null,
                     message: "Invalid Password!"
@@ -82,13 +85,15 @@ const signin = (req, res) => {
                 for (let i = 0; i < roles.length; i++) {
                     authorities.push("ROLE_" + roles[i].name.toUpperCase());
                 }
-                res.status(200).send({
+                console.log("reached heeeere")
+                res.send(JSON.stringify({
                     id: user.id,
-                    username: user.username,
+                    username: user.name,
                     email: user.email,
                     roles: authorities,
                     accessToken: token
-                });
+                }));
+               
             });
         })
         .catch(err => {
