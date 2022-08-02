@@ -35,7 +35,8 @@ module.exports = (sequelize, DataTypes) => {
     pincode: DataTypes.STRING,
     phonenumber: DataTypes.STRING,
     bloodgroup: DataTypes.STRING,
-    age: DataTypes.STRING
+    age: DataTypes.STRING,
+    bloodcertificate: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'User',

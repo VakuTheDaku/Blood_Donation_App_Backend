@@ -3,7 +3,9 @@ const config = require("../config/auth.config.js");
 const db = require("../models");
 const User = db.User;
 verifyToken = (req, res, next) => {
+  console.log("verifyiiiing")
   let token = req.headers["x-access-token"];
+  console.log(req.headers["x-access-token"])
   if (!token) {
     return res.send(JSON.stringify({"status": 403, "error": "no token provided", "response": "failed" }));
   }

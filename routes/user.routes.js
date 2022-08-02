@@ -1,8 +1,12 @@
 const { authJwt } = require("../middleware");
 const controller = require("../controllers/user.controller");
+const multer = require("multer")
+const path = require("path")
 
-const authorisation=(app)=> {
-  app.use(function(req, res, next) {
+
+const authorisation = (app) => {
+  
+  app.use(function (req, res, next) {
     res.header(
       "Access-Control-Allow-Headers",
       "x-access-token, Origin, Content-Type, Accept"
@@ -25,5 +29,6 @@ const authorisation=(app)=> {
     [authJwt.verifyToken, authJwt.isAdmin],
     controller.adminBoard
   );
+  
 };
-module.exports=authorisation
+module.exports = authorisation
