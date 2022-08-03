@@ -7,7 +7,7 @@ const multer = require("multer")
 const { authJwt } = require("./middleware");
 const {User} = require("./models")
 // require('./routes/auth.routes')(app);
-require('./routes/user.routes')(app);
+
 const bodyParser = require('body-parser');
 const cors = require("cors");
 
@@ -42,9 +42,10 @@ const publicdrc = path.resolve(__dirname, 'public')
 app.use(express.static(publicdrc))
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, './public')
+    cb(null, './public/bloodcertificates')
   },
   filename: (req, file, cb) => {
+
     cb(null, new Date().toISOString().replace(/:/g, '-') + '-' + file.originalname)
   }
 })
@@ -52,9 +53,9 @@ app.use(bodyParser.json())
 app.use(cors(corsOptions))
 const upload = multer({ storage }).single('file');
 app.use(mainrouter)
-
+require('./routes/user.routes')(app);
 app.post('/upload', [authJwt.verifyToken], (req, res) => {
-  console.log(">>>>>>>>>>reached upload")
+  
   
   upload(req, res, (err) => {
     if (err) {

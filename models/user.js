@@ -36,7 +36,8 @@ module.exports = (sequelize, DataTypes) => {
     phonenumber: DataTypes.STRING,
     bloodgroup: DataTypes.STRING,
     age: DataTypes.STRING,
-    bloodcertificate: DataTypes.STRING
+    bloodcertificate: DataTypes.STRING,
+    isverified: DataTypes.BOOLEAN
   }, {
     sequelize,
     modelName: 'User',

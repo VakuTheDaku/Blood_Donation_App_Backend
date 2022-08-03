@@ -1,8 +1,5 @@
 const { authJwt } = require("../middleware");
 const controller = require("../controllers/user.controller");
-const multer = require("multer")
-const path = require("path")
-
 
 const authorisation = (app) => {
   
@@ -29,6 +26,20 @@ const authorisation = (app) => {
     [authJwt.verifyToken, authJwt.isAdmin],
     controller.adminBoard
   );
-  
+  app.get(
+    "/api/bloodcertificate",
+    [authJwt.verifyToken],
+    controller.givebirthcertificate
+  );
+  app.get(
+    "/api/getallcertificates",
+    [authJwt.verifyToken, authJwt.isModerator],
+    controller.getallcertificates
+  );
+  app.post(
+    "/api/verify",
+    [authJwt.verifyToken, authJwt.isModerator],
+    controller.verification
+  );
 };
 module.exports = authorisation

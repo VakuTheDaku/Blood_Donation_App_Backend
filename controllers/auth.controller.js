@@ -23,7 +23,8 @@ const insert = (req, res, next) => {
         phonenumber: req.body.phonenumber,
         address: req.body.address,
         pincode: req.body.pincode,
-        bloodgroup: req.body.blood_group
+        bloodgroup: req.body.blood_group,
+        isverified: 0
     })
         .then(user => {
             
@@ -91,7 +92,8 @@ const signin = (req, res) => {
                     username: user.name,
                     email: user.email,
                     roles: authorities,
-                    accessToken: token
+                    accessToken: token,
+                    isverified: user.isverified
                 }));
                
             });
