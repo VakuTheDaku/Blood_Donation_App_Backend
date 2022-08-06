@@ -62,10 +62,25 @@ isModeratorOrAdmin = (req, res, next) => {
     });
   });
 };
+isVerified = (req, res, next) => {
+  console.log("heeere")
+  User.findByPk(req.userId).then(user => {
+    
+        if (user.isverified === true) {
+          next();
+          return;
+        }
+        
+      
+      res.send(JSON.stringify({"status": 403, "error": "requires you to be verified", "response": "failed" }));;
+   
+  });
+};
 const authJwt = {
   verifyToken: verifyToken,
   isAdmin: isAdmin,
   isModerator: isModerator,
-  isModeratorOrAdmin: isModeratorOrAdmin
+  isModeratorOrAdmin: isModeratorOrAdmin,
+  isVerified: isVerified
 };
 module.exports = authJwt;

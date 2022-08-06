@@ -17,6 +17,7 @@ module.exports = (sequelize, DataTypes) => {
         otherKey: "roleId"
 
       })
+      User.hasOne(models.request)
     }
   }
   User.init({

@@ -41,5 +41,11 @@ const authorisation = (app) => {
     [authJwt.verifyToken, authJwt.isModerator],
     controller.verification
   );
+  app.post("/api/createrequest",
+  [authJwt.verifyToken, authJwt.isVerified],
+  controller.createRequest)
+  app.get("/api/showrequests",
+  [authJwt.verifyToken, authJwt.isVerified],
+  controller.showRequests)
 };
 module.exports = authorisation

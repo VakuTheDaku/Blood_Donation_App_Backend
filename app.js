@@ -79,7 +79,7 @@ app.post('/upload', [authJwt.verifyToken], (req, res) => {
 db.sequelize.sync().then(req => {
 
   app.listen(process.env.PORT || 5000, () => {
-    console.log(publicdrc)
+    
     console.log("server running");
   })
 });
