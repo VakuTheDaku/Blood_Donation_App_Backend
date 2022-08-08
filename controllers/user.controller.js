@@ -55,10 +55,17 @@ exports.verification = (req, res) => {
 }
 exports.createRequest = (req, res) => {
   console.log(req.body)
-  User.findByPk(req.userId).then((user) => {
-    user.createRequest({ UserId: req.userId, validity: req.body.validity }).then(() => {
-      res.send({ message: "Request was registered successfully!" });
+  User.findByPk(req.userId).then(async (user) => {
+    const ispresent = await  user.getRequest({ UserId: req.userId})
+    if(ispresent){
+      res.send(JSON.stringify({message: "Request already present"}))
+    }
+    else{
+       user.createRequest({ UserId: req.userId, validity: req.body.validity }).then(() => {
+      res.send(JSON.stringify({ message: "Request was registered successfully!" }));
     });
+    }
+   
   })
 }
 exports.showRequests = (req, res) => {
@@ -72,6 +79,172 @@ exports.showRequests = (req, res) => {
             where: {
               [Op.or]: [
                 { bloodgroup: "B+ve" },
+                { bloodgroup: "AB+ve" },
+              ]
+            }
+          })
+        }
+        var availablereceiptients = []
+        for (const element of requests) {
+          const newele=await p(element)
+          availablereceiptients.push(newele)
+        };
+        console.log(availablereceiptients)
+        res.send(JSON.stringify({"status":200,"data":availablereceiptients}))
+      })
+
+    }
+    if (user.bloodgroup === "A+ve") {
+      request.findAll().then(async (requests) => {
+        function p(element){
+          return element.getUser({
+            where: {
+              [Op.or]: [
+                { bloodgroup: "A+ve" },
+                { bloodgroup: "AB+ve" },
+              ]
+            }
+          })
+        }
+        var availablereceiptients = []
+        for (const element of requests) {
+          const newele=await p(element)
+          availablereceiptients.push(newele)
+        };
+        console.log(availablereceiptients)
+        res.send(JSON.stringify({"status":200,"data":availablereceiptients}))
+      })
+
+    }
+    if (user.bloodgroup === "O+ve") {
+      request.findAll().then(async (requests) => {
+        function p(element){
+          return element.getUser({
+            where: {
+              [Op.or]: [
+                { bloodgroup: "O+ve" },
+                { bloodgroup: "A+ve" },
+                { bloodgroup: "B+ve" },
+                { bloodgroup: "AB+ve" },
+              ]
+            }
+          })
+        }
+        var availablereceiptients = []
+        for (const element of requests) {
+          const newele=await p(element)
+          availablereceiptients.push(newele)
+        };
+        console.log(availablereceiptients)
+        res.send(JSON.stringify({"status":200,"data":availablereceiptients}))
+      })
+
+    }
+    if (user.bloodgroup === "AB+ve") {
+      request.findAll().then(async (requests) => {
+        function p(element){
+          return element.getUser({
+            where: {
+              [Op.or]: [
+                { bloodgroup: "AB+ve" },
+              ]
+            }
+          })
+        }
+        var availablereceiptients = []
+        for (const element of requests) {
+          const newele=await p(element)
+          availablereceiptients.push(newele)
+        };
+        console.log(availablereceiptients)
+        res.send(JSON.stringify({"status":200,"data":availablereceiptients}))
+      })
+
+    }
+    if (user.bloodgroup === "A-ve") {
+      request.findAll().then(async (requests) => {
+        function p(element){
+          return element.getUser({
+            where: {
+              [Op.or]: [
+                { bloodgroup: "A-ve" },
+                { bloodgroup: "A+ve" },
+                { bloodgroup: "AB+ve" },
+                { bloodgroup: "AB-ve" },
+              ]
+            }
+          })
+        }
+        var availablereceiptients = []
+        for (const element of requests) {
+          const newele=await p(element)
+          availablereceiptients.push(newele)
+        };
+        console.log(availablereceiptients)
+        res.send(JSON.stringify({"status":200,"data":availablereceiptients}))
+      })
+
+    }
+    if (user.bloodgroup === "B-ve") {
+      request.findAll().then(async (requests) => {
+        function p(element){
+          return element.getUser({
+            where: {
+              [Op.or]: [
+                { bloodgroup: "AB+ve" },
+                { bloodgroup: "B-ve" },
+                { bloodgroup: "B+ve" },
+                { bloodgroup: "AB-ve" },
+              ]
+            }
+          })
+        }
+        var availablereceiptients = []
+        for (const element of requests) {
+          const newele=await p(element)
+          availablereceiptients.push(newele)
+        };
+        console.log(availablereceiptients)
+        res.send(JSON.stringify({"status":200,"data":availablereceiptients}))
+      })
+
+    }
+    if (user.bloodgroup === "AB-ve") {
+      request.findAll().then(async (requests) => {
+        function p(element){
+          return element.getUser({
+            where: {
+              [Op.or]: [
+                { bloodgroup: "AB+ve" },
+                { bloodgroup: "AB-ve" },
+              ]
+            }
+          })
+        }
+        var availablereceiptients = []
+        for (const element of requests) {
+          const newele=await p(element)
+          availablereceiptients.push(newele)
+        };
+        console.log(availablereceiptients)
+        res.send(JSON.stringify({"status":200,"data":availablereceiptients}))
+      })
+
+    }
+    if (user.bloodgroup === "O-ve") {
+      request.findAll().then(async (requests) => {
+        function p(element){
+          return element.getUser({
+            where: {
+              [Op.or]: [
+                { bloodgroup: "AB+ve" },
+                { bloodgroup: "B-ve" },
+                { bloodgroup: "B+ve" },
+                { bloodgroup: "AB-ve" },
+                { bloodgroup: "A-ve" },
+                { bloodgroup: "A+ve" },
+                { bloodgroup: "O-ve" },
+                { bloodgroup: "O+ve" },
               ]
             }
           })

@@ -93,7 +93,8 @@ const signin = (req, res) => {
                     email: user.email,
                     roles: authorities,
                     accessToken: token,
-                    isverified: user.isverified
+                    isverified: user.isverified,
+                    bloodgroup: user.bloodgroup
                 }));
                
             });
