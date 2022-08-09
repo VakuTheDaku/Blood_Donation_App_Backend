@@ -16,6 +16,7 @@ const corsOptions = {
   credentials: true,
   optionSuccessStatus: 200,
 }
+app.use(cors(corsOptions))
 const directory = path.resolve(__dirname, 'public', 'assets', 'images')
 
 
@@ -50,7 +51,7 @@ const storage = multer.diskStorage({
   }
 })
 app.use(bodyParser.json())
-app.use(cors(corsOptions))
+
 const upload = multer({ storage }).single('file');
 app.use(mainrouter)
 require('./routes/user.routes')(app);

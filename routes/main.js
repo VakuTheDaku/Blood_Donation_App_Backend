@@ -1,8 +1,10 @@
 const express= require("express")
-const { main, insert, signin } = require("../controllers/auth.controller")
+const { main, insert, signin, mailverification } = require("../controllers/auth.controller")
+const verify = require("../middleware/verifySignUp")
 const router=express.Router()
 const auth=require("./user.routes")
-router.post("/posts",insert)
+router.post("/posts",[verify.checkDuplicateUsernameOrEmail, verify.checkRolesExisted],insert)
 router.post("/signin",signin)
 router.get("/",main)
+router.post("/sendcode",mailverification)
 module.exports= router

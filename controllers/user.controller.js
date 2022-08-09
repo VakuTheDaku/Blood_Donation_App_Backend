@@ -30,7 +30,7 @@ exports.givebirthcertificate = (req, res) => {
 exports.getallcertificates = (req, res) => {
   User.findAll({ where: { bloodcertificate: { [Op.ne]: null } } }).then(user => {
 
-    function filterFunction(user) {
+    function filterFunction(user) { 
 
       return [user.id, user.bloodcertificate, user.isverified]
 
